@@ -10,26 +10,55 @@ var ContentFooter = require('./components/ContentFooter');
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return{
-      data: []
+    return {
+      reviews: [],
+      user_types: [],
+      filter:null,
+      sort:'helpful',
+      ratings: []
     };
   },
   componentWillMount: function(){
-    var data;
     var client_id = "d4c304926e39e2335b51afe92f747a1936b70dac6b8640470347955ad8a228e1";
     ajax({
       url: "http://vngrs-challenge.herokuapp.com/api/reviews",
       data: { client_id: client_id },
       type: "GET",
       beforeSend: function(xhr){xhr.setRequestHeader('X-client_id', client_id);},
-      success: function(data) {
+      // success: this.processData.bind(this)
+      success: function(result){
         this.setState({
-          data:data.data
-        })
+          reviews:result.data,
+        });
+        this.calculateRating();
       }.bind(this),
+    });
+  },
+
+  calculateRating: function(){
+    var result={};
+
+    this.state.reviews.forEach(function(review){
+      result[review.rating] = (result[review.rating] || 0) + 1;
+    });
+    this.setState({
+      ratings:result,
     })
   },
+
+
+  changeFilter:function(filter){
+    this.setState({
+      filter:filter
+    });
+  },
+  changeSort:function(sort){
+    this.setState({
+      sort:sort
+    });
+  },
   render: function(){
+
     return(
       <div>
         <header className="main-header">
@@ -48,13 +77,13 @@ module.exports = React.createClass({
           </div>
         </header>
         <div className="page-wrapper">
-          <PageHeader data={this.state.data}/>
+          <PageHeader/>
           <div className="content">
-            <FilterFlags />
+            <FilterFlags onChangeFilter={this.changeFilter}/>
             <div className="clear" />
-            <SortReviews />
+            <SortReviews onChangeSort={this.changeSort}  />
             <div className="clear" />
-            <Reviews />
+            <Reviews reviews ={this.state.reviews} filter={this.state.filter} sort={this.state.sort}/>
             <ContentFooter />
           </div>
           <Sidebar />

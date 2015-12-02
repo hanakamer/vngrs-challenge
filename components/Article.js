@@ -1,6 +1,42 @@
 var React = require('react');
+var ajax = require('jquery').ajax;
 
 var Article = React.createClass({
+  getContent: function(){
+    var {content} = this.props;
+
+    if (this.state.showAll){
+      return content;
+    }
+
+    var firstPart = content.slice(0,500);
+    return firstPart;
+  },
+  readMore: function(){
+    this.setState({
+      showAll:true
+    })
+  },
+  getInitialState:function(){
+    return{
+      helpful_count:this.props.helpful_count,
+      not_helpful_count:this.props.not_helpful_count,
+      showAll:false
+    }
+  },
+  handleVote:function(type, e){
+    e.preventDefault();
+    var client_id = "d4c304926e39e2335b51afe92f747a1936b70dac6b8640470347955ad8a228e1";
+    ajax({
+      type:'POST',
+      url:'http://vngrs-challenge.herokuapp.com/api/reviews/'+this.props.id+'/vote',
+      data:JSON.stringify({'type':type}),
+      beforeSend: function(xhr){xhr.setRequestHeader('X-client_id', client_id);},
+    });
+    var state = this.state;
+    state[type+'_count']=state[type+'_count']+1;
+    this.setState(state)
+  },
   render: function(){
     return(
       <div>
@@ -9,9 +45,9 @@ var Article = React.createClass({
           <div className="review-flag blue-flag" />
           <span className="review-logo" />
           <div className="data-wrapper">
-            <span className="review-data-item review-date">September 23, 2012</span>
-            <span className="review-data-item review-author">JIM PANCAKE</span>
-            <span className="review-data-item review-via">Hardback - Verified Bookish Purchase</span>
+            <span className="review-data-item review-date">{this.props.date}</span>
+            <span className="review-data-item review-author">{this.props.user.firstname+' '+this.props.user.lastname}</span>
+            <span className="review-data-item review-via">{this.props.book_type} - Verified Bookish Purchase</span>
           </div>
           <div className="review-title">
             <div className="title-stars">
@@ -21,24 +57,31 @@ var Article = React.createClass({
               <img className="title-star" src="./images/title_star.png" />
               <img className="title-star" src="./images/title_star.png" />
             </div>
-            <span>THIS BOOK IS THE BEES KNEES</span>
+            <span>{this.props.title}</span>
           </div>
         </header>
         <div className="review-body">
-          <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
-          <span className="more blue-txt">Read more...</span>
+
+          <p>{this.getContent()}</p>
+          {(function(){
+            if (this.state.showAll) return null;
+
+            return (
+              <span className="more blue-txt" onClick={this.readMore}>Read more...</span>
+            )
+          }.bind(this))()}
           <div className="clear" />
         </div>
         <footer className="review-footer">
-          <div className="review-summary"> 8 out of 8 found this review helpful.</div>
+          <div className="review-summary"> {this.state.helpful_count} out of {this.state.helpful_count + this.state.not_helpful_count}  found this review helpful.</div>
           <div className="review-rate">
             Was this review helpful to you?
-            <a className="blue-txt" href="#">
+            <a className="blue-txt" href="#" onClick={this.handleVote.bind(this,'helpful')}>
               <span className="helpful-icon" />
               Helpful
             </a>
             |
-            <a className="blue-txt" href="#">
+            <a className="blue-txt" href="#" onClick={this.handleVote.bind(this,'not_helpful')}>
               <span className="helpful-icon not-helpful" />
               Not Helpful
             </a>

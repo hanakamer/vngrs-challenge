@@ -3,12 +3,13 @@ var React = require('react');
 var Sidebar =React.createClass({
   render : function(){
     var {ratings} = this.props;
-
     var barContainer = [];
     var totalVoters = 0;
+
     for (var key in ratings) {
       totalVoters = totalVoters + ratings[key]
     };
+
     for (var key in ratings) {
       var divStyle = {
         width: (ratings[key]/totalVoters)*100 +'%'
@@ -21,9 +22,6 @@ var Sidebar =React.createClass({
         </div>
       );
     };
-
-
-
     var weight = 0;
     var totalVotes = 0;
 
@@ -47,7 +45,7 @@ var Sidebar =React.createClass({
         <div className="rating-summary">
           <div className="summary-stars">
             {stars}
-            <p>Avarage Rating:4 out 5 stars</p>
+            <p>Avarage Rating:{rounded_avg} out 5 stars</p>
           </div>
           <div className="rating-bars">
             {barContainer}

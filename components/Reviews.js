@@ -17,7 +17,7 @@ var Reviews = React.createClass({
     if(this.state.seeAllReviews) {
       return this.props.reviews;
     }
-    var firstPart = this.props.reviews.slice(0,2);
+    var firstPart = this.props.reviews.slice(0,3);
     return firstPart;
   },
   seeAll: function(){

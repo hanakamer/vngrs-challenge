@@ -1,5 +1,6 @@
 var React = require('react');
 var Article = require('./Article');
+var ContentFooter = require('./ContentFooter');
 
 var parseDate = function(date){
   return date.replace('-','');
@@ -7,10 +8,27 @@ var parseDate = function(date){
 }
 
 var Reviews = React.createClass({
-
+  getInitialState:function(){
+    return{
+      seeAllReviews:false
+    }
+  },
+  getContent: function(){
+    if(this.state.seeAllReviews) {
+      return this.props.reviews;
+    }
+    var firstPart = this.props.reviews.slice(0,2);
+    return firstPart;
+  },
+  seeAll: function(){
+    this.setState({
+      seeAllReviews:true,
+    })
+  },
   render: function(){
-    var {reviews, filter, sort} = this.props;
-
+    var {filter, sort} = this.props;
+    var reviews = this.getContent();
+    var reviewNumber = this.props.reviews.length;
     if (filter) {
       reviews = reviews.filter((i)=>i.user.type.indexOf(filter) !== -1);
     }
@@ -39,6 +57,7 @@ var Reviews = React.createClass({
       <div className="reviews">
         {articles}
       </div>
+      <ContentFooter seeAll={this.state.seeAllReviews} onChangeSeeAll={this.seeAll} reviewNumber={reviewNumber}/>
       </div>
     )
   }

@@ -6,7 +6,7 @@ var Sidebar = require('./components/Sidebar');
 var SortReviews = require('./components/SortReviews');
 var FilterFlags = require('./components/FilterFlags');
 var PageHeader = require('./components/PageHeader');
-var ContentFooter = require('./components/ContentFooter');
+
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -96,9 +96,9 @@ module.exports = React.createClass({
             <SortReviews onChangeSort={this.changeSort}  />
             <div className="clear" />
             <Reviews reviews ={this.state.reviews} filter={this.state.filter} sort={this.state.sort}/>
-            <ContentFooter />
+
           </div>
-          <Sidebar ratingCounter={this.state.ratings} />
+          <Sidebar ratings={this.state.ratings} reviewNumber={this.state.reviews.length} />
         </div>
       </div>
 

@@ -15,7 +15,6 @@ var PageHeader = React.createClass({
       totalVotes = totalVotes + ratings[key];
     }
 
-
     var avg = weight/totalVotes;
     var rounded_avg =Math.round(avg);
     var stars = [];

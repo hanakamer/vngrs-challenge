@@ -649,22 +649,24 @@ position: relative;
 .article-delimater {
   margin:18px 0;
 }
-.reader-color {
-  background: blue;
-}
 
+.librarian-color {
+  background: #D1FFA3;
+  opacity: .8;
+}
 .critic-color {
-  background: yellow; 
+  background: #FCD65C;
+  opacity: .8;
 }
-
 .blogger-color {
-
+  background: #D6ADFF;
+  opacity: .8;
 }
-
 .reader-color {
-  background: turquoise;
+  background: #A3E0FD;
+  opacity: .8;
 }
-
-.null-bolor {
-
+.editor-color {
+  background: #FDADAC;
+  opacity: .8;
 }

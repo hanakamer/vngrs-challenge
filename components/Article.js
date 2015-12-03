@@ -9,8 +9,8 @@ var Article = React.createClass({
       return content;
     }
 
-    var firstPart = content.slice(0,500);
-    return firstPart;
+    var firstPart = content.slice(0,800);
+    return firstPart+' . . .';
   },
   readMore: function(){
     this.setState({

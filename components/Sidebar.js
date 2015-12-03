@@ -2,44 +2,57 @@ var React = require('react');
 
 var Sidebar =React.createClass({
   render : function(){
+    var {ratings} = this.props;
+
     var barContainer = [];
     var totalVoters = 0;
-
-    for (var key in this.props.ratingCounter) {
-      totalVoters = totalVoters + this.props.ratingCounter[key]
+    for (var key in ratings) {
+      totalVoters = totalVoters + ratings[key]
     };
-
-    for (var key in this.props.ratingCounter) {
+    for (var key in ratings) {
       var divStyle = {
-        width: (this.props.ratingCounter[key]/totalVoters)*100 +'%'
+        width: (ratings[key]/totalVoters)*100 +'%'
       };
       barContainer.push(
         <div className="rating-bar-container" key={key}>
           <span className="bar-inf">{key} STAR</span><span className="rating-bar rating-bar-bg ">
             <span className="rating-bar rating-bar-fill" style={divStyle}/>
-          </span><span className="bar-cntr">({this.props.ratingCounter[key]})</span>
+          </span><span className="bar-cntr">({ratings[key]})</span>
         </div>
       );
     };
 
-    console.log(barContainer);
 
+
+    var weight = 0;
+    var totalVotes = 0;
+
+    for (var key in ratings) {
+      weight = weight + ratings[key]*key;
+      totalVotes = totalVotes + ratings[key];
+    }
+
+    var avg = weight/totalVotes;
+    var rounded_avg =Math.round(avg);
+    var stars = [];
+    for (var i=0; i < rounded_avg; i++) {
+    stars.push(<div className="summary-star" key={i} ><img src="./images/summary_star.png"  /></div>);
+    };
+    for (var i=stars.length; i<5; i++) {
+      stars.push(<div className="summary-star"  key={i} ><img src="./images/rating_gray_star.png" /></div>);
+    }
     return (
       <div>
       <aside className="Sidebar">
         <div className="rating-summary">
           <div className="summary-stars">
-            <div className="summary-star"><img src="./images/summary_star.png" /></div>
-            <div className="summary-star"><img src="./images/summary_star.png" /></div>
-            <div className="summary-star"><img src="./images/summary_star.png" /></div>
-            <div className="summary-star"><img src="./images/summary_star.png" /></div>
-            <div className="summary-star"><img src="./images/summary_star.png" /></div>
+            {stars}
             <p>Avarage Rating:4 out 5 stars</p>
           </div>
           <div className="rating-bars">
             {barContainer}
           </div>
-          <p>View All 225 Reviews</p>
+          <p>View All {this.props.reviewNumber} Reviews</p>
           <div className="blue-btn"><button className="add-review-icon"> ADD A REVIEW</button></div>
         </div>
         <div className="purchase">

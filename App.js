@@ -12,10 +12,10 @@ module.exports = React.createClass({
   getInitialState: function(){
     return {
       reviews: [],
-      user_types: [],
       filter:null,
       sort:'helpful',
-      ratings: []
+      ratings: [],
+      userReviews:[]
     };
   },
   componentWillMount: function(){
@@ -31,6 +31,7 @@ module.exports = React.createClass({
           reviews:result.data,
         });
         this.calculateRating();
+        this.calculateReviews();
       }.bind(this),
     });
   },
@@ -43,6 +44,17 @@ module.exports = React.createClass({
     });
     this.setState({
       ratings:result,
+    })
+  },
+
+  calculateReviews: function(){
+    var result={};
+
+    this.state.reviews.forEach(function(review){
+      result[review.user.type] = (result[review.user.type] || 0) + 1;
+    });
+    this.setState({
+      userReviews:result,
     })
   },
 
@@ -77,16 +89,16 @@ module.exports = React.createClass({
           </div>
         </header>
         <div className="page-wrapper">
-          <PageHeader/>
+          <PageHeader ratings={this.state.ratings}/>
           <div className="content">
-            <FilterFlags onChangeFilter={this.changeFilter}/>
+            <FilterFlags onChangeFilter={this.changeFilter}  userReviews={this.state.userReviews} selectedFlag={this.state.filter}/>
             <div className="clear" />
             <SortReviews onChangeSort={this.changeSort}  />
             <div className="clear" />
             <Reviews reviews ={this.state.reviews} filter={this.state.filter} sort={this.state.sort}/>
             <ContentFooter />
           </div>
-          <Sidebar />
+          <Sidebar ratingCounter={this.state.ratings} />
         </div>
       </div>
 

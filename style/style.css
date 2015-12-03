@@ -106,7 +106,7 @@ select:hover {
 
 .nav-item:hover{
   background-color:#528031;
-} 
+}
 
 .logo {
   display:inline-block;
@@ -130,7 +130,7 @@ select:hover {
   border:none;
   width:225px;
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 11px; 
+  font-size: 11px;
   padding: 0;
 }
 
@@ -168,7 +168,7 @@ select:hover {
 .star img {
   height: 26px;
   -webkit-filter: drop-shadow(5px 5px 2px #bfbfbf);
-  filter:         drop-shadow(5px 5px 2px #bfbfbf); 
+  filter:         drop-shadow(5px 5px 2px #bfbfbf);
 }
 
 .header-total-reviews {
@@ -193,61 +193,75 @@ select:hover {
   padding-top: 10px;
   line-height: 12px;
   margin-right: 10px;
-  width: 76px;
-  height: 78px;
+  width: 80px;
+  height: 77px;
   position: relative;
   display: inline-block;
   font-size: 12px;
   text-align: center;
-  box-shadow: 0 0 0px 2px white,  inset 0px 0px 9px 0px rgba(0,0,0,0.1), 0px -3px 5px 0px rgba(194,194,194,1);; 
+  -webkit-filter: drop-shadow(2px 6px 5px #bfbfbf);
 }
 
-.flag:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 0;
-  border-bottom: 15px solid white;
-  border-left: 38px solid transparent;
-  border-right: 38px solid transparent;
+.active-flag {
+  box-sizing:border-box;
+  padding-top: 10px;
+  line-height: 12px;
+  margin-right: 10px;
+  width: 80px;
+  height: 91px;
+  position: relative;
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  -webkit-filter: drop-shadow(2px 6px 5px #bfbfbf);
+}
+.active-blue-flag {
+   background: url('../images/active_blue_flag.png');
 }
 
-.flag:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 0;
-  border-bottom: 15px solid #e7e7e7;
-  border-left: 38px solid transparent;
-  border-right: 38px solid transparent;
+.active-turquase-flag {
+  background: url('../images/active_turquase_flag.png');
 }
+
+.active-yellow-flag {
+  background:url('../images/active_yellow_flag.png');
+}
+
+.active-pink-flag {
+  background: url('../images/active_pink_flag.png');
+}
+
+.active-green-flag {
+  background: url('../images/active_green_flag.png');
+}
+
+.active-purple-flag {
+  background: url('../images/active_purple_flag.png');
+}
+
 
 .blue-flag {
-  background: #8ac7cc;
+   background: url('../images/blue_flag.png');
 }
 
 .turquase-flag {
-  background: #c4ebfe;
+  background: url('../images/turquase_flag.png');
 }
 
 .yellow-flag {
-  background: #fde597;
+  background:url('../images/yellow_flag.png');
 }
 
 .pink-flag {
-  background: #fecbca;
+  background: url('../images/pink_flag.png');
 }
 
 .green-flag {
-  background: #e2ffc4;
+  background: url('../images/green_flag.png');
 }
 
 .purple-flag {
-  background: #e5cbff;
+  background: url('../images/purple_flag.png');
 }
 
 .review-data-item {
@@ -258,7 +272,7 @@ select:hover {
 .review-flag {
   width: 10px;
   height: 50px;
-  float: left; 
+  float: left;
 }
 
 .review-logo {
@@ -343,6 +357,7 @@ select:hover {
 
 .blue-txt {
   color: #48a7af;
+  margin-left: 3px;
 }
 
 .page-wrapper {
@@ -441,13 +456,13 @@ position: relative;
 }
 
 .yellow-btn {
-  background: -webkit-linear-gradient( 90deg, #f2bc00 0%, #f8c000 49%, #ffc600 52%); 
-  background: -moz-linear-gradient( 90deg, #f2bc00 0%, #f8c000 49%, #ffc600 52%); 
+  background: -webkit-linear-gradient( 90deg, #f2bc00 0%, #f8c000 49%, #ffc600 52%);
+  background: -moz-linear-gradient( 90deg, #f2bc00 0%, #f8c000 49%, #ffc600 52%);
 }
 
 .orange-btn {
   background: -webkit-linear-gradient( 90deg, #f25500 0%, #f75700 49%, #ff5a00 52%);
-  background: -moz-linear-gradient( 90deg, #f25500 0%, #f75700 49%, #ff5a00 52%);  
+  background: -moz-linear-gradient( 90deg, #f25500 0%, #f75700 49%, #ff5a00 52%);
 }
 
 .white-btn {
@@ -633,4 +648,23 @@ position: relative;
 
 .article-delimater {
   margin:18px 0;
+}
+.reader-color {
+  background: blue;
+}
+
+.critic-color {
+  background: yellow; 
+}
+
+.blogger-color {
+
+}
+
+.reader-color {
+  background: turquoise;
+}
+
+.null-bolor {
+
 }

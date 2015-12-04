@@ -95,10 +95,10 @@ module.exports = React.createClass({
             <div className="clear" />
             <SortReviews onChangeSort={this.changeSort}  />
             <div className="clear" />
-            <Reviews reviews ={this.state.reviews} filter={this.state.filter} sort={this.state.sort}/>
+            <Reviews reviews ={this.state.reviews} filter={this.state.filter} sort={this.state.sort} userReviews={this.state.userReviews}/>
 
           </div>
-          <Sidebar ratings={this.state.ratings} reviewNumber={this.state.reviews.length} />
+          <Sidebar ratings={this.state.ratings} reviewNumber={this.state.reviews.length}  />
         </div>
       </div>
 

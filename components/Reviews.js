@@ -13,11 +13,11 @@ var Reviews = React.createClass({
       seeAllReviews:false
     }
   },
-  getContent: function(){
+  getContent: function(content){
     if(this.state.seeAllReviews) {
-      return this.props.reviews;
+      return content;
     }
-    var firstPart = this.props.reviews.slice(0,3);
+    var firstPart = content.slice(0,3);
     return firstPart;
   },
   seeAll: function(){
@@ -26,12 +26,13 @@ var Reviews = React.createClass({
     })
   },
   render: function(){
-    var {filter, sort} = this.props;
-    var reviews = this.getContent();
-    var reviewNumber = this.props.reviews.length;
+    var {reviews, filter, sort, userReviews} = this.props;
+    var reviewNumber = reviews.length;
     if (filter) {
       reviews = reviews.filter((i)=>i.user.type.indexOf(filter) !== -1);
+      reviews = this.getContent(reviews);
     }
+    reviews = this.getContent(reviews);
 
     if (sort) {
       reviews.sort(function(a,b){
@@ -57,7 +58,7 @@ var Reviews = React.createClass({
       <div className="reviews">
         {articles}
       </div>
-      <ContentFooter seeAll={this.state.seeAllReviews} onChangeSeeAll={this.seeAll} reviewNumber={reviewNumber}/>
+      <ContentFooter seeAll={this.state.seeAllReviews} onChangeSeeAll={this.seeAll} allReviewNumber={reviewNumber} userReviews={userReviews} filter={this.props.filter}/>
       </div>
     )
   }
